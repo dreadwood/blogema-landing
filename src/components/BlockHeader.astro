@@ -108,9 +108,6 @@ import Sprite from '@/components/Sprite.astro'
       border: $apx-m-1 solid $color-white;
       backdrop-filter: blur($apx-m-5);
       border-radius: $apx-m-26;
-      // &.open {
-      //   display: block;
-      // }
     }
   }
   .list {
@@ -122,10 +119,10 @@ import Sprite from '@/components/Sprite.astro'
       gap: 0;
       width: max-content;
       & > * {
-        border-bottom: 1px solid transparentize($color-white, 0.8);
+        border-bottom: $apx-m-1 solid transparentize($color-white, 0.8);
       }
       & > *:first-child {
-        border-top: 1px solid transparentize($color-white, 0.8);
+        border-top: $apx-m-1 solid transparentize($color-white, 0.8);
       }
     }
   }

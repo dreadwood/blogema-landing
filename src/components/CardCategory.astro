@@ -13,7 +13,7 @@ interface Props {
 const { idCategory, category, name, link, image } = Astro.props
 ---
 
-<div class="card" data-id-category={idCategory}>
+<div class="card" data-category-id-card={idCategory}>
   {image && <Image class="img" src={image} alt="" />}
   <div class="top">
     #{category}
@@ -39,6 +39,9 @@ const { idCategory, category, name, link, image } = Astro.props
     border: $apx-1 solid $color-white;
     border-radius: $apx-18;
     overflow: hidden;
+    &[hidden] {
+      display: none;
+    }
     @include mobile {
       padding: $apx-m-15;
       height: $apx-m-295;

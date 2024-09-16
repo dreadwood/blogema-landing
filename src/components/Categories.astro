@@ -1,27 +1,186 @@
 ---
+import Sprite from '@/components/Sprite.astro'
+
 export interface props {
   className?: string
 }
 
 const { className } = Astro.props
+
+const btns = [
+  {
+    idCategory: 0,
+    text: 'Все',
+    isActv: true
+  },
+  {
+    idCategory: 1,
+    text: 'Категория 1'
+  },
+  {
+    idCategory: 2,
+    text: 'Категория 2'
+  },
+  {
+    idCategory: 3,
+    text: 'Категория 3'
+  },
+  {
+    idCategory: 4,
+    text: 'Категория 4'
+  }
+]
 ---
 
 <div class={className} class="categories">
-  <button class="category-btn">Все</button>
-  <button class="category-btn">Категория 1</button>
-  <button class="category-btn actv">Категория 2</button>
-  <button class="category-btn">Категория 3</button>
-  <button class="category-btn">Категория 4</button>
+  <button class="currrent-btn js-drop-btn">
+    <span>Все</span>
+    <Sprite name="arrow-circle-bottom" />
+  </button>
+  <div class="list js-drop-menu">
+    {
+      btns.map((it) => (
+        <button
+          class:list={[
+            'btn',
+            'js-drop-value',
+            {
+              actv: it.isActv
+            }
+          ]}
+          data-category-id-btn={it.idCategory}
+        >
+          {it.text}
+        </button>
+      ))
+    }
+  </div>
 </div>
+
+<script>
+  const btnDrop = document.querySelector('.js-drop-btn')
+  const btnDropText = document.querySelector('.js-drop-btn span')
+  const menu = document.querySelector('.js-drop-menu')
+  const values = document.querySelectorAll('.js-drop-value')
+
+  let isOpen = false
+
+  btnDrop?.addEventListener('click', () => {
+    if (isOpen) closeMenu()
+    else openMenu()
+  })
+
+  function openMenu() {
+    btnDrop?.classList.add('actv')
+    menu?.classList.add('open')
+    isOpen = true
+  }
+
+  function closeMenu() {
+    btnDrop?.classList.remove('actv')
+    menu?.classList.remove('open')
+    isOpen = false
+  }
+
+  function filterCategories(id: string | undefined) {
+    const cards = document.querySelectorAll('div[data-category-id-card]')
+
+    cards.forEach((it) => {
+      if (it instanceof HTMLElement) {
+        const idCard = it.dataset.categoryIdCard
+
+        if (id === '0') it.removeAttribute('hidden')
+        else if (idCard === id) it.removeAttribute('hidden')
+        else it.setAttribute('hidden', 'hidden')
+      }
+    })
+  }
+
+  values.forEach((it) => {
+    it.addEventListener('click', (evt) => {
+      if (btnDropText) {
+        btnDropText.textContent = it.textContent
+      }
+
+      values.forEach((it) => it.classList.remove('actv'))
+      it.classList.add('actv')
+
+      if (it instanceof HTMLElement) {
+        filterCategories(it.dataset.categoryIdBtn)
+      }
+
+      closeMenu()
+    })
+  })
+</script>
 
 <style lang="scss">
   @import '/src/styles/global/index.scss';
   .categories {
+    position: relative;
+  }
+  .currrent-btn {
+    display: none;
+    @include mobile {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+      padding: $apx-m-17 $apx-m-23;
+      font-family: $font-default;
+      font-size: $apx-m-18;
+      line-height: $apx-m-22;
+      font-weight: 400;
+      text-align: left;
+      color: $color-white;
+      text-transform: uppercase;
+      background-color: $color-black;
+      border: $apx-m-1 solid $color-white;
+      border-radius: $apx-m-40;
+      cursor: pointer;
+      &:hover,
+      &:focus-visible {
+        background: linear-gradient(90deg, #ed90c8 0%, #ffaf88 100%);
+      }
+      :global(svg) {
+        @include transition(transform);
+        flex-shrink: 0;
+        width: $apx-m-24;
+        height: $apx-m-24;
+      }
+      &.actv {
+        :global(svg) {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+  .list {
     display: flex;
     align-items: center;
     gap: $apx-19;
+    @include mobile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: none;
+      gap: 0;
+      width: 100%;
+      padding-top: $apx-m-60;
+      padding-bottom: $apx-m-16;
+      background: transparentize($color-black, 0.2);
+      border: $apx-m-1 solid $color-white;
+      border-radius: $apx-m-30 $apx-m-30 $apx-m-40 $apx-m-40;
+      &.open {
+        display: grid;
+      }
+    }
   }
-  .category-btn {
+  .btn {
     width: max-content;
     margin: 0;
     padding: $apx-24 $apx-42;
@@ -41,11 +200,14 @@ const { className } = Astro.props
     }
     @include mobile {
       width: 100%;
-      padding: $apx-20 $apx-24;
-      font-size: $apx-18;
-      line-height: $apx-21;
+      padding: $apx-m-20 $apx-m-24;
+      font-size: $apx-m-18;
+      line-height: $apx-m-21;
       border: 0;
       border-radius: 0;
+      &.actv {
+        display: none;
+      }
     }
   }
 </style>
