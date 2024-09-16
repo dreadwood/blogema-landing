@@ -3,26 +3,27 @@ import Sprite from '@/components/Sprite.astro'
 ---
 
 <header class="wrp">
-  <div class="content">
+  <div class="content js-menu">
     <a class="logo" href="/">
       <Sprite name="logo-blogema-header" />
     </a>
 
     <nav class="menu">
       <ul class="list">
-        <li><a class="link" href="#">О премии</a></li>
-        <li><a class="link" href="#">Номинации</a></li>
-        <li><a class="link" href="#">Прямая трансляция</a></li>
+        <li><a class="link js-link" href="#manifest">О премии</a></li>
+        <li><a class="link js-link" href="#categories">Номинации</a></li>
+        <li><a class="link js-link" href="#">Прямая трансляция</a></li>
       </ul>
     </nav>
 
-    <button class="burger"></button>
+    <button class="burger js-burger"></button>
   </div>
 </header>
 
 <script>
-  const burger = document.querySelector('.burger')
-  const menu = document.querySelector('.content')
+  const burger = document.querySelector('.js-burger')
+  const menu = document.querySelector('.js-menu')
+  const links = document.querySelectorAll('.js-link')
 
   let isOpen = false
 
@@ -30,6 +31,12 @@ import Sprite from '@/components/Sprite.astro'
     if (isOpen) closeMenu()
     else openMenu()
   })
+
+  links.forEach((it) =>
+    it.addEventListener('click', () => {
+      closeMenu()
+    })
+  )
 
   function openMenu() {
     burger?.classList.add('cross')
