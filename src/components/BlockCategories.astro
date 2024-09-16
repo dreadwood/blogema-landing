@@ -1,0 +1,216 @@
+---
+import Categories from '@/components/Categories.astro'
+import CardCategory from '@/components/CardCategory.astro'
+
+import bgPink1 from '@img/card-bg-pink-1.svg'
+import bgPink2 from '@img/card-bg-pink-2.svg'
+import bgGreen1 from '@img/card-bg-green-1.svg'
+import bgGreen2 from '@img/card-bg-green-2.svg'
+import bgBlue1 from '@img/card-bg-blue-1.svg'
+import bgBlue2 from '@img/card-bg-blue-2.svg'
+import bgImg1 from '@img/card-bg-img-1.jpg'
+import bgImg2 from '@img/card-bg-img-2.jpg'
+
+const cards = [
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Блогер <br> года',
+    link: '/category/best-blogger-year'
+  },
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Прорыв/ <br> открытие года',
+    link: '/category/discovery-year'
+  },
+  {
+    idCategory: '3',
+    category: 'категория 3',
+    name: 'Стример <br> года'
+  },
+  {
+    idCategory: '3',
+    category: 'категория 3',
+    name: 'Бьюти <br> блогер года'
+  },
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Блогер <br> года',
+    image: bgPink1,
+    link: '/category/best-blogger-year'
+  },
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Прорыв/ <br> открытие года',
+    image: bgGreen2,
+    link: '/category/discovery-year'
+  },
+  {
+    idCategory: '4',
+    category: 'категория 4',
+    name: 'Стример <br> года',
+    image: bgBlue1
+  },
+  {
+    idCategory: '2',
+    category: 'категория 2',
+    name: 'Бьюти <br> блогер',
+    image: bgImg1
+  },
+  {
+    idCategory: '3',
+    category: 'категория 3',
+    name: 'Журналист <br> блогер года',
+    image: bgPink2
+  },
+  {
+    idCategory: '2',
+    category: 'категория 2',
+    name: 'Блогерский <br> хит',
+    image: bgGreen1
+  },
+  {
+    idCategory: '4',
+    category: 'категория 4',
+    name: 'Тревел <br> блогер года',
+    image: bgBlue2
+  },
+  {
+    idCategory: '4',
+    category: 'категория 4',
+    name: 'Бьюти <br> блогер года'
+  },
+  {
+    idCategory: '3',
+    category: 'категория 3',
+    name: 'Просветитель <br> года'
+  },
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Самый <br> креативный <br> коммерческий <br> проект года',
+    link: '/category/creative-project-year'
+  },
+  {
+    idCategory: '3',
+    category: 'категория 3',
+    name: 'Коллаборация <br> года'
+  },
+  {
+    idCategory: '2',
+    category: 'категория 2',
+    name: 'Бьюти <br> блогер года',
+    image: bgImg2
+  },
+  {
+    idCategory: '2',
+    category: 'категория 2',
+    name: 'Добро <br> года'
+  },
+  {
+    idCategory: '4',
+    category: 'категория 4',
+    name: 'Семейный <br> блогер года'
+  },
+  {
+    idCategory: '1',
+    category: 'категория 1',
+    name: 'Лучший <br> детский блогер <br> года',
+    link: '/category/child-blogger'
+  }
+]
+---
+
+<section class="wrp">
+  <h2 class="title">Номинации</h2>
+
+  <Categories className="categories" />
+
+  <div class="list">
+    {
+      cards.map((it) => (
+        <CardCategory
+          idCategory={it.idCategory}
+          category={it.category}
+          name={it.name}
+          link={it.link}
+          image={it.image}
+        />
+      ))
+    }
+  </div>
+  <button class="btn">Показать больше</button>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-60 $apx-108;
+    @include mobile {
+      padding: $apx-m-60 $apx-m-24 0 $apx-m-24;
+    }
+  }
+  .title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-80;
+    line-height: $apx-96;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    @include mobile {
+      font-size: $apx-m-36;
+      line-height: $apx-m-43;
+    }
+  }
+  .categories {
+    margin-top: $apx-40;
+    @include mobile {
+      margin-top: $apx-m-40;
+      display: none;
+    }
+  }
+  .list {
+    margin-top: $apx-40;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $apx-24;
+    @include mobile {
+      grid-template-columns: auto;
+      gap: $apx-m-24;
+      margin-top: $apx-m-40;
+    }
+  }
+  .btn {
+    display: none;
+    @include mobile {
+      @include transition(color, background-color);
+      display: block;
+      max-width: 100%;
+      min-width: $apx-m-280;
+      width: max-content;
+      margin: $apx-m-24 auto 0 auto;
+      padding: $apx-m-19 $apx-m-22;
+      font: inherit;
+      font-size: $apx-m-18;
+      line-height: $apx-m-21;
+      color: $color-black;
+      text-align: center;
+      background-color: $color-white;
+      text-transform: uppercase;
+      border: 0;
+      border-radius: $apx-m-40;
+      cursor: pointer;
+      &:hover,
+      &:focus-visible {
+        color: $color-white;
+        background-color: transparent;
+      }
+    }
+  }
+</style>

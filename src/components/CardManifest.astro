@@ -1,0 +1,33 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<div class="card" set:html={text} />
+
+<style lang="scss">
+  @import "/src/styles/global/index.scss";
+  .card {
+    padding: $apx-40;
+    font-family: $font-default;
+    font-size: $apx-18;
+    line-height: $apx-25;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: $color-white;
+    background-color: $color-black;
+    border-radius: $apx-20;
+    & > b {
+      font-weight: 500;
+    }
+    @include mobile {
+      padding: $apx-24;
+      font-size: $apx-14;
+      line-height: $apx-20;
+      border: $apx-1 solid $color-white;
+    }
+  }
+</style>

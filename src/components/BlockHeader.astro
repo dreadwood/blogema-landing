@@ -1,0 +1,202 @@
+---
+import Sprite from '@/components/Sprite.astro'
+---
+
+<header class="wrp">
+  <div class="content">
+    <a class="logo" href="/">
+      <Sprite name="logo-blogema-header" />
+    </a>
+
+    <nav class="menu">
+      <ul class="list">
+        <li><a class="link" href="#">О премии</a></li>
+        <li><a class="link" href="#">Номинации</a></li>
+        <li><a class="link" href="#">Прямая трансляция</a></li>
+      </ul>
+    </nav>
+
+    <button class="burger"></button>
+  </div>
+</header>
+
+<script>
+  const burger = document.querySelector('.burger')
+  const menu = document.querySelector('.content')
+
+  let isOpen = false
+
+  burger?.addEventListener('click', () => {
+    if (isOpen) closeMenu()
+    else openMenu()
+  })
+
+  function openMenu() {
+    burger?.classList.add('cross')
+    menu?.classList.add('open')
+    document.body.classList.add('scroll-lock')
+    isOpen = true
+  }
+
+  function closeMenu() {
+    burger?.classList.remove('cross')
+    menu?.classList.remove('open')
+    document.body.classList.remove('scroll-lock')
+    isOpen = false
+  }
+</script>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-22 $apx-108;
+    @include mobile {
+      position: relative;
+      z-index: 1;
+      padding: $apx-m-16 $apx-m-12;
+    }
+  }
+  .content {
+    @include transition(background-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $apx-20;
+    padding: $apx-11 $apx-39;
+    border: $apx-1 solid $color-white;
+    border-radius: $apx-40;
+    @include mobile {
+      gap: $apx-m-20;
+      padding: $apx-m-5 $apx-m-23 $apx-m-5 $apx-m-11;
+      border-width: $apx-m-1;
+      background-color: transparentize($color-black, 1);
+      border-radius: $apx-m-40;
+      &.open {
+        background-color: $color-black;
+        .menu {
+          display: block;
+        }
+      }
+    }
+  }
+  .logo {
+    display: block;
+    width: $apx-88;
+    height: $apx-52;
+    :global(svg) {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    @include mobile {
+      position: relative;
+      z-index: 1;
+      width: $apx-m-64;
+      height: $apx-m-38;
+    }
+  }
+  .menu {
+    @include mobile {
+      display: none;
+      position: absolute;
+      top: $apx-m-16;
+      left: $apx-m-12;
+      z-index: -1;
+      width: calc(100% - ($apx-m-12 * 2));
+      padding: $apx-m-144 $apx-m-48;
+      background: transparentize($color-black, 0.2);
+      border: $apx-m-1 solid $color-white;
+      backdrop-filter: blur($apx-m-5);
+      border-radius: $apx-m-26;
+      // &.open {
+      //   display: block;
+      // }
+    }
+  }
+  .list {
+    @include list-reset;
+    display: flex;
+    gap: $apx-24;
+    @include mobile {
+      display: grid;
+      gap: 0;
+      width: max-content;
+      & > * {
+        border-bottom: 1px solid transparentize($color-white, 0.8);
+      }
+      & > *:first-child {
+        border-top: 1px solid transparentize($color-white, 0.8);
+      }
+    }
+  }
+  .link {
+    @include transition(color);
+    font-size: $apx-18;
+    line-height: $apx-21;
+    color: $color-white;
+    text-transform: uppercase;
+    text-decoration: none;
+    &:hover,
+    &:focus-visible {
+      color: transparentize($color-white, 0.3);
+    }
+    @include mobile {
+      display: block;
+      width: 100%;
+      padding: $apx-m-32 0;
+      font-family: $font-title;
+      font-size: $apx-m-18;
+      line-height: $apx-m-22;
+      text-align: center;
+    }
+  }
+  .burger {
+    @include transition(rotate);
+    display: none;
+    @include mobile {
+      position: relative;
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      border: 0;
+      width: $apx-m-47;
+      height: $apx-m-38;
+      cursor: pointer;
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: $apx-m-3;
+        background-color: $color-white;
+        border-radius: $apx-m-3;
+      }
+      &::before {
+        transform: translateY(-$apx-m-5);
+      }
+      &::after {
+        transform: translateY($apx-m-3);
+      }
+      &.cross {
+        rotate: 45deg;
+        &::before {
+          width: $apx-m-27;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+        &::after {
+          width: $apx-m-27;
+          left: 50%;
+          top: 50%;
+          transform: rotate(90deg);
+          transform: translate(-50%, -50%) rotate(90deg);
+        }
+      }
+    }
+  }
+</style>

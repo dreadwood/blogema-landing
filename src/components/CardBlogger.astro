@@ -1,0 +1,243 @@
+---
+import Sprite from '@/components/Sprite.astro'
+
+interface Props {
+  category: string
+  name: string
+  vote: number
+  image: string
+  color: 'pink' | 'green' | 'purple' | 'blue'
+}
+
+const { category, name, vote, image, color } = Astro.props
+---
+
+<div class="wrp">
+  <div class:list={['photo-border', color]}>{color}</div>
+  <img class="photo" src={image} width="238" height="238" alt="" />
+
+  <div class="card">
+    <img
+      class="background"
+      src=`/src/assets/img/nominees-bg-${color}.svg`
+      width="238"
+      height="238"
+      alt=""
+    />
+    <div class="category">#{category}</div>
+    <div class="name" set:html={name} />
+    <div class="list">
+      <a class="social" href="#">
+        <Sprite name="twitter" />
+      </a>
+      <a class="social" href="#">
+        <Sprite name="facebook" />
+      </a>
+      <a class="social" href="#">
+        <Sprite name="instagram" />
+      </a>
+    </div>
+    <button class="btn">Голосовать</button>
+    <div class="vote">
+      <Sprite name="like" />
+      {vote} голосов
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    position: relative;
+    flex-shrink: 0;
+    padding-top: $apx-94;
+    @include mobile {
+      padding-top: $apx-m-75;
+    }
+  }
+  .photo-border {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    width: $apx-238;
+    height: $apx-238;
+    border-radius: 50%;
+    opacity: 0.5;
+    transform: translateX(-50%);
+    mask: radial-gradient(circle $apx-98, transparent 100%, #fff 100%);
+    &.pink {
+      background: $gradient-pink;
+    }
+    &.green {
+      background: $gradient-green;
+    }
+    &.purple {
+      background: $gradient-purple;
+    }
+    &.blue {
+      background: $gradient-blue;
+    }
+    @include mobile {
+      width: $apx-m-190;
+      height: $apx-m-190;
+      mask: radial-gradient(circle $apx-m-79, transparent 100%, #fff 100%);
+    }
+  }
+  .photo {
+    position: absolute;
+    top: $apx-17;
+    left: 50%;
+    z-index: 1;
+    display: block;
+    width: $apx-204;
+    height: $apx-204;
+    border: $apx-1 solid $color-white;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translateX(-50%);
+    @include mobile {
+      top: $apx-m-13;
+      width: $apx-m-164;
+      height: $apx-m-164;
+      border-width: $apx-m-1;
+    }
+  }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $apx-184 $apx-15 $apx-24 $apx-15;
+    font-weight: 400;
+    text-align: center;
+    color: $color-white;
+    border: $apx-1 solid $color-white;
+    border-radius: $apx-18;
+    overflow: hidden;
+    @include mobile {
+      padding: $apx-m-147 $apx-m-12 $apx-m-19 $apx-m-12;
+      border-width: $apx-m-1;
+      border-radius: $apx-m-14;
+    }
+  }
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+  .category {
+    font-size: $apx-16;
+    line-height: $apx-19;
+    text-transform: uppercase;
+    @include mobile {
+      font-size: $apx-m-14;
+      line-height: $apx-m-16;
+    }
+  }
+  .name {
+    margin-top: $apx-28;
+    font-family: $font-title;
+    font-size: $apx-32;
+    line-height: $apx-46;
+    font-weight: 400;
+    color: $color-white;
+    @include mobile {
+      margin-top: $apx-m-27;
+      font-size: $apx-m-24;
+      line-height: $apx-m-35;
+    }
+  }
+  .list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $apx-18;
+    margin-top: $apx-16;
+    @include mobile {
+      gap: $apx-m-14;
+      margin-top: $apx-m-13;
+    }
+  }
+  .social {
+    @include transition(color);
+    flex-shrink: 0;
+    width: $apx-24;
+    height: $apx-24;
+    color: $color-white;
+    :global(svg) {
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+      stroke: currentColor;
+    }
+    &:hover,
+    &:focus-visible {
+      color: transparentize($color-white, 0.3);
+    }
+    @include mobile {
+      width: $apx-m-19;
+      height: $apx-m-19;
+    }
+  }
+  .btn {
+    @include transition(color, background-color);
+    display: block;
+    width: 100%;
+    margin-top: $apx-40;
+    padding: $apx-18;
+    font-size: $apx-18;
+    line-height: $apx-22;
+    color: $color-white;
+    background-color: transparent;
+    border-radius: $apx-40;
+    border: $apx-1 solid $color-white;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover,
+    &:focus-visible {
+      color: $color-black;
+      background-color: $color-white;
+    }
+    @include mobile {
+      margin-top: $apx-m-32;
+      padding: $apx-m-15;
+      font-size: $apx-m-14;
+      line-height: $apx-m-16;
+      border-radius: $apx-m-40;
+    }
+  }
+  .vote {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $apx-16;
+    margin-top: $apx-24;
+    font-size: $apx-16;
+    line-height: $apx-23;
+    color: transparentize($color-white, 0.5);
+    :global(svg) {
+      flex-shrink: 0;
+      display: block;
+      width: $apx-24;
+      height: $apx-24;
+    }
+    @include mobile {
+      gap: $apx-m-13;
+      margin-top: $apx-m-19;
+      font-size: $apx-m-13;
+      line-height: $apx-m-19;
+      :global(svg) {
+        width: $apx-m-19;
+        height: $apx-m-19;
+      }
+    }
+  }
+</style>

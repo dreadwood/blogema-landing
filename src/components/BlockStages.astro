@@ -1,0 +1,201 @@
+---
+const stages = [
+  {
+    date: '1 сентября - 30 сентября',
+    name: 'Формирование лонг-листа <br> номинантов'
+  },
+  {
+    date: '1 октября - 15 октября',
+    name: 'Народное голосование и <br> формирование шорт-листа'
+  },
+  {
+    date: '16 октября - 25 октября',
+    name: 'Определение <br> победителей'
+  },
+  {
+    date: '25 октября',
+    name: 'Церемония награждения <br> LIVE-трансляция'
+  }
+]
+---
+
+<section class="wrp">
+  <h2 class="title">
+    Этапы
+    <span>голосования</span>
+  </h2>
+
+  <div class="list">
+    {
+      stages.map((it, i) => (
+        <div class="stage">
+          <div class="date">{it.date}</div>
+          <div class="name" set:html={it.name} />
+          <div
+            class:list={[
+              'progress',
+              {
+                first: i === 0,
+                mid: i !== 0 && i !== stages.length - 1,
+                last: i === stages.length - 1,
+                actv: i < 1
+              }
+            ]}
+          />
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-60 $apx-108;
+    @include mobile {
+      padding: $apx-m-60 $apx-m-24;
+    }
+  }
+  .title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-64;
+    line-height: $apx-77;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    :global(span) {
+      display: block;
+      font-size: $apx-86;
+      line-height: $apx-103;
+    }
+    @include mobile {
+      font-size: $apx-m-36;
+      line-height: $apx-m-43;
+      :global(span) {
+        font-size: $apx-m-36;
+        line-height: $apx-m-43;
+      }
+    }
+  }
+  .list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: $apx-48;
+    @include mobile {
+      grid-template-columns: auto;
+      margin-top: $apx-m-48;
+    }
+  }
+  .stage {
+    display: grid;
+  }
+  .date {
+    font-size: $apx-18;
+    line-height: $apx-21;
+    opacity: 0.5;
+    @include mobile {
+      font-size: $apx-m-18;
+      line-height: $apx-m-21;
+    }
+  }
+  .name {
+    margin-top: $apx-8;
+    font-size: $apx-20;
+    line-height: $apx-29;
+    text-transform: uppercase;
+    @include mobile {
+      margin-top: $apx-m-8;
+      font-size: $apx-m-20;
+      line-height: $apx-m-29;
+    }
+  }
+  .progress {
+    position: relative;
+    align-self: end;
+    margin-top: $apx-24;
+    &.first::before {
+      content: '';
+      position: absolute;
+      bottom: $apx-18;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: $apx-1;
+      background-color: $color-white;
+    }
+    &.mid::before {
+      content: '';
+      position: absolute;
+      bottom: $apx-18;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: $apx-1;
+      background-color: $color-white;
+    }
+    &.last::before {
+      content: '';
+      position: absolute;
+      bottom: $apx-18;
+      left: 0;
+      display: block;
+      height: $apx-1;
+    }
+    &::after {
+      content: '';
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: $apx-37;
+      height: $apx-37;
+      background-color: $color-gray-040;
+      border: $apx-1 solid $color-white;
+      border-radius: 50%;
+    }
+    &.actv {
+      &.first::before,
+      &.mid::before {
+        bottom: $apx-16;
+        height: $apx-5;
+      }
+      &::after {
+        background-color: $color-white;
+      }
+    }
+    @include mobile {
+      margin-top: $apx-m-24;
+      &.first::before {
+        bottom: $apx-m-19;
+        left: $apx-m-24;
+        width: 100%;
+      }
+      &.mid::before {
+        bottom: $apx-m-19;
+        left: -$apx-m-24;
+        width: calc(100% + ($apx-m-24 * 2));
+      }
+      &.last::before {
+        bottom: $apx-m-19;
+        left: -$apx-m-24;
+        width: $apx-m-24;
+        background-color: $color-white;
+      }
+      &::after {
+        width: $apx-m-37;
+        height: $apx-m-37;
+        border-width: $apx-m-1;
+      }
+      &.actv {
+        &.first::before,
+        &.mid::before,
+        &.last::before {
+          bottom: $apx-m-15;
+          height: $apx-m-5;
+        }
+      }
+    }
+  }
+</style>

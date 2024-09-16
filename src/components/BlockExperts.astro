@@ -1,0 +1,90 @@
+---
+import CardExpert from './CardExpert.astro'
+
+interface Props {
+  color: 'pink' | 'green' | 'purple' | 'blue'
+}
+
+const { color } = Astro.props
+
+const experts = [
+  {
+    company: 'Bubel MGT',
+    name: 'Анатолий Марков',
+    jobTitle: 'СЕО',
+    image: '/assets/img/alexander-kozlov.jpg'
+  },
+  {
+    company: 'DNative',
+    name: 'Денис Комилавочников',
+    jobTitle:
+      'Digital-блогер, SMM-стратег, директор по развитию и сооснователь подкаст-платформы mave.digital',
+    image: '/assets/img/denis-komilavochnikov-ovchinnikov.jpg'
+  }
+]
+---
+
+<section class="wrp">
+  <h2 class="title">Эксперты</h2>
+
+  <div class="list">
+    {
+      [...experts, ...experts, ...experts, ...experts].map((it) => (
+        <CardExpert
+          company={it.company}
+          name={it.name}
+          image={it.image}
+          jobTitle={it.jobTitle}
+          color={color}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-60 $apx-108;
+    @include mobile {
+      padding: $apx-m-60 $apx-m-24;
+    }
+  }
+  .title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-80;
+    line-height: $apx-96;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    @include mobile {
+      font-size: $apx-m-36;
+      line-height: $apx-m-43;
+    }
+  }
+  .list {
+    margin-top: $apx-40;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $apx-24;
+    @include mobile {
+      display: flex;
+      align-items: stretch;
+      gap: $apx-m-24;
+      margin-top: $apx-m-40;
+      margin-right: -$apx-m-24;
+      margin-left: -$apx-m-24;
+      padding-right: $apx-m-24;
+      padding-left: $apx-m-24;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 $apx-m-24;
+      & > :global(*) {
+        scroll-snap-align: start;
+      }
+    }
+  }
+</style>

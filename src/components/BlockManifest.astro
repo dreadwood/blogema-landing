@@ -1,0 +1,93 @@
+---
+import Sprite from '@/components/Sprite.astro'
+
+const content = [
+  'На протяжении всей истории человечества в обществе были те, кто формировал идеи и смыслы, собирал вокруг себя группы единомышленников, последователей и поклонников, задавал тон развитию общественной мысли, экономики, политики, моды, искусства. Они отражали в себе дух эпохи, современниками которой являлись, а порой и опережали ее. В каждый период эта роль переходила от одних к другим - от философов, деятелей культуры и искусства, к общественным деятелям, медийным личностям и «звездам». Но их объединяло то, что их называли «богемой».',
+  'На протяжении всей истории человечества в обществе были те, кто формировал идеи и смыслы, собирал вокруг себя группы единомышленников, последователей и поклонников, задавал тон развитию общественной мысли, экономики, политики, моды, искусства. Они отражали в себе дух эпохи, современниками которой являлись, а порой и опережали ее. В каждый период эта роль переходила от одних к другим - от философов, деятелей культуры и искусства, к общественным деятелям, медийным личностям и «звездам». Но их объединяло то, что их называли «богемой».',
+  '<b>Ассоциация блогеров и агентств (АБА)</b>, уникальное профессиональное сообщество, которое понимает природу их влияния и может дать авторитетную оценку достижениям новой богемы. Отсюда и название учрежденной Ассоциацией премии — <b>«Блогема»</b>. <br><br> Премия — это единая платформа, формирующая новый «медиапантеон».'
+]
+---
+
+<section class="wrp">
+  <h2 class="title">
+    <Sprite name="start" />
+    Манифест
+  </h2>
+
+  <div class="list">
+    {content.map((it) => <div class="card" set:html={it} />)}
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-60 $apx-108;
+    @include mobile {
+      padding: $apx-m-40 $apx-m-24 0 $apx-m-24;
+    }
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    gap: $apx-24;
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-144;
+    line-height: $apx-187;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    text-transform: uppercase;
+    :global(svg) {
+      flex-shrink: 0;
+      display: block;
+      width: $apx-161;
+      height: $apx-153;
+    }
+    @include mobile {
+      margin: 0 auto;
+      gap: $apx-m-26;
+      font-size: $apx-m-36;
+      line-height: $apx-m-46;
+      :global(svg) {
+        width: $apx-m-45;
+        height: $apx-m-42;
+      }
+    }
+  }
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: $apx-70;
+    margin-top: $apx-40;
+    @include mobile {
+      grid-template-columns: auto;
+      gap: $apx-m-24;
+      margin-top: $apx-m-24;
+    }
+  }
+  .card {
+    padding: $apx-40;
+    font-family: $font-default;
+    font-size: $apx-18;
+    line-height: $apx-25;
+    font-weight: 300;
+    text-align: left;
+    letter-spacing: -0.02em;
+    color: $color-white;
+    background-color: $color-black;
+    border-radius: $apx-20;
+    :global(b) {
+      font-weight: 500;
+    }
+    @include mobile {
+      padding: $apx-m-24;
+      font-size: $apx-m-14;
+      line-height: $apx-m-20;
+      border: $apx-m-1 solid $color-white;
+      border-radius: $apx-m-20;
+    }
+  }
+</style>

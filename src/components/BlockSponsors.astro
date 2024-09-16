@@ -1,0 +1,100 @@
+---
+const brands1 = [
+  'имя бренда',
+  'имя бренда среднее',
+  'имя бренда самое длинное ',
+  'имя бренда',
+  'имя бренда среднее'
+]
+
+const brands2 = [
+  'имя бренда самое длинное ',
+  'имя бренда',
+  'имя бренда среднее',
+  'имя бренда',
+  'имя бренда самое длинное '
+]
+---
+
+<section class="wrp">
+  <h2 class="title">Спонсоры</h2>
+
+  <div class="content">
+    <div class="list top">
+      {brands1.map((it) => <div class="label">{it}</div>)}
+    </div>
+
+    <div class="list bottom">
+      {brands2.map((it) => <div class="label">{it}</div>)}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-60 $apx-108;
+    @include mobile {
+      padding: $apx-m-60 $apx-m-24;
+    }
+  }
+  .title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-64;
+    line-height: $apx-77;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    @include mobile {
+      font-size: $apx-m-36;
+      line-height: $apx-m-43;
+    }
+  }
+  .content {
+    display: grid;
+    gap: $apx-24;
+    margin-top: $apx-48;
+    @include mobile {
+      gap: $apx-m-16;
+      margin-top: $apx-m-48;
+      margin-right: -$apx-m-24;
+      margin-left: -$apx-m-24;
+    }
+  }
+  .list {
+    @include hide-scroll();
+    display: flex;
+    align-items: center;
+    gap: $apx-24;
+    @include mobile {
+      overflow: scroll;
+      gap: $apx-m-24;
+      padding: 0 $apx-m-24;
+    }
+  }
+  .label {
+    @include text-nowrap;
+    width: max-content;
+    padding: $apx-24 $apx-32;
+    font-family: $font-default;
+    font-size: $apx-20;
+    line-height: $apx-29;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    text-transform: uppercase;
+    border: $apx-1 solid $color-gray-918;
+    border-radius: $apx-20;
+    opacity: 0.5;
+    @include mobile {
+      padding: $apx-m-24 $apx-m-32;
+      font-size: $apx-m-20;
+      line-height: $apx-m-29;
+      border-width: $apx-m-1;
+      border-radius: $apx-m-20;
+    }
+  }
+</style>

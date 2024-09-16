@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import BackgroungImage from '@/components/BackgroungImage.astro'
+import BlockHeader from '@/components/BlockHeader.astro'
+import BlockHeroCategory from '@/components/BlockHeroCategory.astro'
+import BlockNominees from '@/components/BlockNominees.astro'
+import BlockExperts from '@/components/BlockExperts.astro'
+import BlockStages from '@/components/BlockStages.astro'
+import BlockCategories from '@/components/BlockCategories.astro'
+import BlockSponsors from '@/components/BlockSponsors.astro'
+import BlockFooter from '@/components/BlockFooter.astro'
+import heroMain from '@img/hero-main-discovery-year.jpg'
+import heroMainMobile from '@img/hero-main-discovery-year-mobile.jpg'
+
+const title = 'Прорыв/ <br> открытие года'
+const titleMobile = 'Прорыв/ <br> открытие <br> года'
+---
+
+<Layout title="Блогема. Премия блогеров и инфлюенсоров">
+  <BackgroungImage image={heroMain} imageMobile={heroMainMobile} />
+  <BlockHeader />
+  <main>
+    <BlockHeroCategory title={title} titleMobile={titleMobile} />
+    <BlockNominees color="purple" />
+    <BlockExperts color="purple" />
+    <BlockStages />
+    <BlockCategories />
+    <BlockSponsors />
+  </main>
+  <BlockFooter />
+</Layout>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+</style>

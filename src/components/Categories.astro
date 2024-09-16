@@ -1,0 +1,51 @@
+---
+export interface props {
+  className?: string
+}
+
+const { className } = Astro.props
+---
+
+<div class={className} class="categories">
+  <button class="category-btn">Все</button>
+  <button class="category-btn">Категория 1</button>
+  <button class="category-btn actv">Категория 2</button>
+  <button class="category-btn">Категория 3</button>
+  <button class="category-btn">Категория 4</button>
+</div>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .categories {
+    display: flex;
+    align-items: center;
+    gap: $apx-19;
+  }
+  .category-btn {
+    width: max-content;
+    margin: 0;
+    padding: $apx-24 $apx-42;
+    font-family: $font-default;
+    font-size: $apx-24;
+    line-height: $apx-29;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: $apx-1 solid $color-white;
+    border-radius: $apx-60;
+    cursor: pointer;
+    &.actv {
+      background: linear-gradient(90deg, #ed90c8 0%, #ffaf88 100%);
+    }
+    @include mobile {
+      width: 100%;
+      padding: $apx-20 $apx-24;
+      font-size: $apx-18;
+      line-height: $apx-21;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+</style>

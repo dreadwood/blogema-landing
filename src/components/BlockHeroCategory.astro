@@ -1,0 +1,117 @@
+---
+import Sprite from '@/components/Sprite.astro'
+
+interface Props {
+  title: string
+  titleMobile: string
+}
+
+const { title, titleMobile } = Astro.props
+---
+
+<section class="wrp">
+  <Sprite className="star mobile" name="start" />
+  <h1 class="title desktop" set:html={title} />
+  <h1 class="title mobile" set:html={titleMobile} />
+  <div class="content">
+    <Sprite className="star desktop" name="start" />
+    <div>
+      <span class="slogan">
+        Номинация призвана отметить талантливых креаторов контента
+      </span>
+      <span class="text">
+        которые оказали значимое влияние на цифровое сообщество и внесли
+        существенный вклад в сферу инфлюенс-маркетинга.
+      </span>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-450 $apx-108 $apx-160 $apx-108;
+    @include mobile {
+      padding: $apx-m-293 $apx-m-24 $apx-m-25 $apx-m-24;
+    }
+  }
+  .title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $apx-100;
+    line-height: $apx-120;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    @include mobile {
+      margin-top: $apx-m-24;
+      font-size: $apx-m-36;
+      line-height: $apx-m-43;
+    }
+  }
+  .desktop {
+    @include mobile {
+      display: none;
+    }
+  }
+  .mobile {
+    display: none;
+    @include mobile {
+      display: block;
+    }
+  }
+  .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: $apx-71;
+    margin-top: $apx-120;
+    @include mobile {
+      display: block;
+      gap: 0;
+      margin-top: $apx-m-12;
+    }
+  }
+  .star {
+    flex-shrink: 0;
+    width: $apx-160;
+    height: $apx-152;
+    @include mobile {
+      width: $apx-m-105;
+      height: $apx-m-100;
+    }
+  }
+  .slogan {
+    display: block;
+    width: $apx-770;
+    font-family: $font-title;
+    font-size: $apx-42;
+    line-height: $apx-55;
+    text-transform: uppercase;
+    @include mobile {
+      display: inline;
+      width: auto;
+      font-family: $font-default;
+      font-size: $apx-m-16;
+      line-height: $apx-m-19;
+      font-weight: 300;
+      letter-spacing: 0.02rem;
+      text-transform: none;
+    }
+  }
+  .text {
+    display: block;
+    width: $apx-580;
+    margin-top: $apx-16;
+    font-size: $apx-24;
+    line-height: $apx-29;
+    font-weight: 300;
+    letter-spacing: 0.02rem;
+    @include mobile {
+      display: inline;
+      width: auto;
+      font-size: $apx-m-16;
+      line-height: $apx-m-19;
+    }
+  }
+</style>

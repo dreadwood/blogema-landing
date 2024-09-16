@@ -1,0 +1,117 @@
+<section class="wrp">
+  <div class="content">
+    <div class="contols">
+      <button class="btn">Номинации</button>
+      <button class="btn white">Голосование</button>
+    </div>
+
+    <div class="info">
+      <div class="date">
+        <div>МОСКВА-СИТИ</div>
+        <div>01.09 — 25.10</div>
+      </div>
+      <div class="slogan">
+        премия блогеров <br /> и инфлюенсеров
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .wrp {
+    padding: $apx-400 $apx-108 $apx-400 $apx-108;
+    @include mobile {
+      padding: $apx-m-541 $apx-m-24 $apx-m-31 $apx-m-24;
+    }
+  }
+  .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $apx-40;
+    width: 100%;
+    @include mobile {
+      display: grid;
+      gap: $apx-m-16;
+    }
+  }
+  .contols {
+    display: grid;
+    gap: $apx-19;
+    @include mobile {
+      width: 100%;
+      order: 1;
+      gap: $apx-m-18;
+    }
+  }
+  .btn {
+    @include transition(color, background-color);
+    display: block;
+    width: max-content;
+    margin: 0;
+    padding: $apx-24 $apx-50;
+    font: inherit;
+    font-size: $apx-24;
+    line-height: $apx-29;
+    color: $color-white;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: $apx-1 solid $color-white;
+    border-radius: $apx-60;
+    cursor: pointer;
+    &:hover,
+    &:focus-visible {
+      color: $color-black;
+      background-color: $color-white;
+    }
+    &.white {
+      color: $color-black;
+      background-color: $color-white;
+      &:hover,
+      &:focus-visible {
+        color: $color-white;
+        background-color: transparent;
+      }
+    }
+    @include mobile {
+      width: 100%;
+      padding: $apx-m-19 $apx-m-30;
+      font-size: $apx-m-18;
+      line-height: $apx-m-22;
+      border-width: $apx-m-1;
+      border-radius: $apx-m-40;
+    }
+  }
+  .info {
+    text-align: right;
+    text-transform: uppercase;
+    @include mobile {
+      text-align: left;
+    }
+  }
+  .date {
+    display: grid;
+    gap: $apx-16;
+    font-family: $font-title;
+    font-size: $apx-45;
+    line-height: $apx-41;
+    letter-spacing: 0.02em;
+    @include mobile {
+      gap: $apx-m-16;
+      font-size: $apx-m-45;
+      line-height: $apx-m-54;
+    }
+  }
+  .slogan {
+    margin-top: $apx-16;
+    font-size: $apx-24;
+    line-height: $apx-29;
+    font-weight: 300;
+    @include mobile {
+      margin-top: $apx-m-16;
+      font-size: $apx-m-24;
+      line-height: $apx-m-28;
+    }
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets'
+import Sprite from '@/components/Sprite.astro'
+
+interface Props {
+  idCategory: string
+  category: string
+  name: string
+  link?: string
+  image?: ImageMetadata
+}
+
+const { idCategory, category, name, link, image } = Astro.props
+---
+
+<div class="card" data-id-category={idCategory}>
+  {image && <Image class="img" src={image} alt="" />}
+  <div class="top">
+    #{category}
+    <Sprite name="arrow-circle-right" />
+  </div>
+  <div class="name" set:html={name} />
+  <a class="link" href={link || '#'}>Подробнее</a>
+</div>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: $apx-18;
+    height: $apx-370;
+    font-family: $font-default;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    text-transform: uppercase;
+    border: $apx-1 solid $color-white;
+    border-radius: $apx-18;
+    overflow: hidden;
+    @include mobile {
+      padding: $apx-m-15;
+      height: $apx-m-295;
+      border-width: $apx-m-1;
+      border-radius: $apx-m-15;
+    }
+  }
+  .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+    object-fit: cover;
+  }
+  .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $apx-16;
+    line-height: $apx-19;
+    :global(svg) {
+      flex-shrink: 0;
+      display: block;
+      width: $apx-24;
+      height: $apx-24;
+    }
+    @include mobile {
+      font-size: $apx-m-13;
+      line-height: $apx-m-15;
+      :global(svg) {
+        width: $apx-m-19;
+        height: $apx-m-19;
+      }
+    }
+  }
+  .name {
+    margin-top: auto;
+    font-family: $font-title;
+    font-size: $apx-32;
+    line-height: $apx-46;
+    font-weight: 400;
+    text-align: left;
+    color: $color-white;
+    @include mobile {
+      font-size: $apx-m-24;
+      line-height: $apx-m-35;
+    }
+  }
+  .link {
+    margin-top: $apx-18;
+    font-size: $apx-15;
+    line-height: $apx-17;
+    color: transparentize($color-white, 0.5);
+    text-decoration: none;
+    @include mobile {
+      margin-top: $apx-m-15;
+      font-size: $apx-m-12;
+      line-height: $apx-m-14;
+    }
+  }
+</style>

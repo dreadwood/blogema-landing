@@ -1,0 +1,46 @@
+---
+import { Picture } from 'astro:assets'
+
+export interface props {
+  image: ImageMetadata
+  imageMobile: ImageMetadata
+}
+
+const { image, imageMobile } = Astro.props
+---
+
+<Picture
+  class="backgroung desktop"
+  src={image}
+  formats={['avif', 'webp']}
+  alt=""
+/>
+<Picture
+  class="backgroung mobile"
+  src={imageMobile}
+  formats={['avif', 'webp']}
+  alt=""
+/>
+
+<style lang="scss">
+  @import '/src/styles/global/index.scss';
+  .backgroung {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: auto;
+    &.mobile {
+      display: none;
+    }
+    @include mobile {
+      &.desktop {
+        display: none;
+      }
+      &.mobile {
+        display: block;
+      }
+    }
+  }
+</style>
