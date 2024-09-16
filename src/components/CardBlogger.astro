@@ -1,6 +1,11 @@
 ---
 import Sprite from '@/components/Sprite.astro'
 
+import bgPink from '@img/nominees-bg-pink.svg'
+import bgGreen from '@img/nominees-bg-green.svg'
+import bgPurple from '@img/nominees-bg-purple.svg'
+import bgBlue from '@img/nominees-bg-blue.svg'
+
 interface Props {
   category: string
   name: string
@@ -10,6 +15,23 @@ interface Props {
 }
 
 const { category, name, vote, image, color } = Astro.props
+
+let background: ImageMetadata
+
+switch (true) {
+  case color === 'pink':
+    background = bgPink
+    break
+  case color === 'green':
+    background = bgGreen
+    break
+  case color === 'purple':
+    background = bgPurple
+    break
+  default:
+    background = bgBlue
+    break
+}
 ---
 
 <div class="wrp">
@@ -19,7 +41,7 @@ const { category, name, vote, image, color } = Astro.props
   <div class="card">
     <img
       class="background"
-      src=`/src/assets/img/nominees-bg-${color}.svg`
+      src={background.src}
       width="238"
       height="238"
       alt=""
@@ -39,7 +61,7 @@ const { category, name, vote, image, color } = Astro.props
     </div>
     <button class="btn">Голосовать</button>
     <div class="vote">
-      <Sprite name="like" />
+      <Sprite name=`like-${color}` />
       {vote} голосов
     </div>
   </div>
