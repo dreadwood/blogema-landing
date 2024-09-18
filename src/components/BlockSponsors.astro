@@ -1,100 +1,196 @@
 ---
-const brands1 = [
-  'имя бренда',
-  'имя бренда среднее',
-  'имя бренда самое длинное ',
-  'имя бренда',
-  'имя бренда среднее'
-]
+import { Picture } from 'astro:assets'
+import logoPresident from '@img/sponsor-president.png'
+import logoInvite from '@img/sponsor-invite.png'
+import logoVk from '@img/sponsor-vk.png'
+import logoSts from '@img/sponsor-sts.png'
+import logoSmm from '@img/sponsor-smm.png'
+import russianBlogger from '@img/sponsor-russian-blogger.png'
+import logoAba from '@img/sponsor-aba.png'
 
-const brands2 = [
-  'имя бренда самое длинное ',
-  'имя бренда',
-  'имя бренда среднее',
-  'имя бренда',
-  'имя бренда самое длинное '
+const brands = [
+  {
+    img: logoPresident,
+    class: 'logo-president'
+  },
+  {
+    img: logoInvite,
+    class: 'logo-invite',
+    text: 'guest-management партнер'
+  },
+  {
+    img: logoVk,
+    class: 'logo-vk',
+    text: 'официальная социальная сеть премии'
+  },
+  {
+    img: logoSts,
+    class: 'logo-sts',
+    text: 'тв-партнёр'
+  },
+  {
+    img: logoSmm,
+    class: 'logo-smm',
+    text: 'SMM-партнер'
+  },
+  {
+    img: russianBlogger,
+    class: 'logo-bloggers'
+  },
+  {
+    img: logoAba,
+    class: 'logo-aba'
+  }
 ]
 ---
 
 <section class="wrp" id="sponsors">
-  <h2 class="title">Спонсоры</h2>
-
   <div class="content">
-    <div class="list top">
-      {brands1.map((it) => <div class="label">{it}</div>)}
-    </div>
-
-    <div class="list bottom">
-      {brands2.map((it) => <div class="label">{it}</div>)}
-    </div>
+    {
+      ['list1', 'list2'].map((line) => (
+        <div class:list={['list', line]}>
+          {brands.map((it) => (
+            <div class="item">
+              <div class="logo">
+                <Picture
+                  class={it.class}
+                  formats={['avif', 'webp']}
+                  src={it.img}
+                  alt=""
+                />
+              </div>
+              <div class="label">{it.text}</div>
+            </div>
+          ))}
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style lang="scss">
   @import '/src/styles/global/index.scss';
   .wrp {
-    padding: $apx-60 $apx-108;
+    padding: 0 $apx-108;
     @include mobile {
-      padding: $apx-m-60 $apx-m-24;
-    }
-  }
-  .title {
-    margin: 0;
-    font-family: $font-title;
-    font-size: $apx-64;
-    line-height: $apx-77;
-    font-weight: 400;
-    text-align: left;
-    color: $color-white;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    @include mobile {
-      font-size: $apx-m-36;
-      line-height: $apx-m-43;
+      padding: 0;
     }
   }
   .content {
-    display: grid;
-    gap: $apx-24;
-    margin-top: $apx-48;
     @include mobile {
-      gap: $apx-m-16;
-      margin-top: $apx-m-48;
-      margin-right: -$apx-m-24;
-      margin-left: -$apx-m-24;
+      @include hide-scroll();
+      display: flex;
+      overflow-x: hidden;
     }
   }
   .list {
-    @include hide-scroll();
     display: flex;
-    align-items: center;
-    gap: $apx-24;
+    align-items: flex-start;
+    justify-content: space-between;
+    &.list2 {
+      display: none;
+    }
     @include mobile {
-      overflow: scroll;
+      flex-shrink: 0;
       gap: $apx-m-24;
-      padding: 0 $apx-m-24;
+      padding: 0 $apx-m-12;
+      &.list1 {
+        animation: running-line1 20s infinite linear;
+        animation-delay: -20s;
+      }
+      &.list2 {
+        display: flex;
+        animation: running-line2 20s infinite linear;
+        animation-delay: -10s;
+      }
+    }
+  }
+  .item {
+    @include text-nowrap;
+    width: max-content;
+  }
+  .logo {
+    display: grid;
+    place-items: center;
+    height: $apx-68;
+    img {
+      height: auto;
+    }
+    .logo-president {
+      width: $apx-273;
+    }
+    .logo-invite {
+      width: $apx-156;
+    }
+    .logo-vk {
+      width: $apx-274;
+    }
+    .logo-sts {
+      width: $apx-129;
+    }
+    .logo-smm {
+      width: $apx-84;
+    }
+    .logo-bloggers {
+      width: $apx-123;
+    }
+    .logo-aba {
+      width: $apx-74;
+    }
+    @include mobile {
+      height: $apx-m-44;
+      .logo-president {
+        width: $apx-m-180;
+      }
+      .logo-invite {
+        width: $apx-m-103;
+      }
+      .logo-vk {
+        width: $apx-m-181;
+      }
+      .logo-sts {
+        width: $apx-m-85;
+      }
+      .logo-smm {
+        width: $apx-m-53;
+      }
+      .logo-bloggers {
+        width: $apx-m-82;
+      }
+      .logo-aba {
+        width: $apx-m-49;
+      }
     }
   }
   .label {
-    @include text-nowrap;
-    width: max-content;
-    padding: $apx-24 $apx-32;
-    font-family: $font-default;
-    font-size: $apx-20;
-    line-height: $apx-29;
+    margin-top: $apx-4;
+    font-size: $apx-12;
+    line-height: $apx-14;
     font-weight: 400;
-    text-align: left;
-    color: $color-white;
+    text-align: center;
+    color: transparentize($color-white, 0.5);
     text-transform: uppercase;
-    border: $apx-1 solid $color-gray-918;
-    border-radius: $apx-20;
-    opacity: 0.5;
     @include mobile {
-      padding: $apx-m-24 $apx-m-32;
-      font-size: $apx-m-20;
-      line-height: $apx-m-29;
-      border-width: $apx-m-1;
-      border-radius: $apx-m-20;
+      margin-top: $apx-m-2;
+      font-size: $apx-m-9;
+      line-height: $apx-m-11;
+    }
+  }
+  @keyframes running-line1 {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes running-line2 {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-200%);
     }
   }
 </style>
