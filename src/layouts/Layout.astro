@@ -1,4 +1,6 @@
 ---
+import { ViewTransitions } from 'astro:transitions'
+
 interface Props {
   title: string
 }
@@ -19,6 +21,7 @@ const { title } = Astro.props
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body>
     <div class="body-content">
