@@ -16,6 +16,26 @@ jobs:
         with:
           fetch-depth: 0  # Чтобы была возможность работать с другими ветками
 
+      - name: Set minimal git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      # Проверка, существует ли ветка dist и её очистка
+      - name: Clean dist branch
+        run: |
+          git fetch origin
+          if git rev-parse --verify origin/dist; then
+            git switch dist
+          else
+            git checkout --orphan dist
+          fi
+          git rm -rf .
+          git clean -fd
+          git commit --allow-empty -m "Clean dist branch"
+          git push origin dist --force
+          git checkout main
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -27,31 +47,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Set minimal git config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-      # Проверка, существует ли ветка dist и её очистка
-      - name: Clean dist branch
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git fetch origin
-          if git rev-parse --verify origin/dist; then
-            git switch dist
-          else
-            git checkout --orphan dist
-          fi
-          git rm -rf .
-          git clean -fd
-          git commit --allow-empty -m "Clean dist branch"
-          git push origin dist --force
-
       - name: Build project
-        run: |
-          git checkout main
-          pnpm run build
+        run: pnpm run build
 
       # Деплой в ветку dist
       - name: Deploy to dist branch
