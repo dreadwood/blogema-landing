@@ -8,13 +8,15 @@ interface Props {
   name: string
   link?: string
   image?: ImageMetadata
+  animation?: string
 }
 
-const { idCategory, category, name, link, image } = Astro.props
+const { idCategory, category, name, link, image, animation } = Astro.props
 ---
 
 <div class="card" data-category-id-card={idCategory}>
   {image && <Image class="img" src={image} alt="" />}
+  {animation && <div class:list={['circle', animation]} />}
   <div class="top">
     #{category}
     <Sprite name="arrow-circle-right" />
@@ -104,6 +106,165 @@ const { idCategory, category, name, link, image } = Astro.props
       margin-top: $apx-m-15;
       font-size: $apx-m-12;
       line-height: $apx-m-14;
+    }
+  }
+  @function scaleValue($value) {
+    @return calc(
+      #{$value} * (clamp(350px, 100vw, 3840px) / var(--ideal-viewport-width))
+    );
+  }
+  .circle {
+    position: absolute;
+    z-index: -1;
+    display: grid;
+    place-items: center;
+    width: $apx-295;
+    height: $apx-295;
+    border-radius: 50%;
+    opacity: 0.5;
+    &:after {
+      content: '';
+      display: block;
+      width: $apx-250;
+      height: $apx-250;
+      background: $color-black;
+      border-radius: 50%;
+    }
+    @include mobile {
+      width: $apx-m-235;
+      height: $apx-m-235;
+      &:after {
+        width: $apx-m-210;
+        height: $apx-m-210;
+      }
+    }
+  }
+  .circle-green {
+    background: $gradient-circle-green;
+    transform: rotate(90deg);
+    animation-name: circleA;
+    animation-duration: 38s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    @include mobile {
+      animation-name: circleA-mobile;
+    }
+  }
+  .circle-blue {
+    animation-name: circleB;
+    animation-duration: 46s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .circle-pink {
+    animation-name: circleC;
+    animation-duration: 52s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes circleA {
+    0% {
+      left: $apx-250;
+      top: -$apx-150;
+    }
+    20% {
+      left: $apx-150;
+      top: $apx-250;
+    }
+    40% {
+      left: $apx-250;
+      top: -$apx-120;
+    }
+    60% {
+      left: $apx-350;
+      top: $apx-100;
+    }
+    70% {
+      left: $apx-100;
+      top: $apx-230;
+    }
+    100% {
+      left: $apx-250;
+      top: -$apx-150;
+    }
+  }
+  @keyframes circleA-mobile {
+    0% {
+      left: $apx-m-250;
+      top: -$apx-m-150;
+    }
+    20% {
+      left: $apx-m-150;
+      top: $apx-m-250;
+    }
+    40% {
+      left: $apx-m-250;
+      top: -$apx-m-120;
+    }
+    60% {
+      left: $apx-m-350;
+      top: $apx-m-100;
+    }
+    70% {
+      left: $apx-m-100;
+      top: $apx-m-230;
+    }
+    100% {
+      left: $apx-m-250;
+      top: -$apx-m-150;
+    }
+  }
+  @keyframes circleB {
+    0% {
+      left: $apx-100;
+      top: $apx-150;
+    }
+    20% {
+      left: $apx-250;
+      top: -$apx-150;
+    }
+    40% {
+      left: $apx-300;
+      top: -$apx-100;
+    }
+    60% {
+      left: $apx-100;
+      top: $apx-150;
+    }
+    70% {
+      left: -$apx-150;
+      top: -$apx-150;
+    }
+    100% {
+      left: $apx-100;
+      top: $apx-150;
+    }
+  }
+
+  @keyframes circleC {
+    0% {
+      left: -$apx-150;
+      top: -$apx-150;
+    }
+    20% {
+      left: $apx-50;
+      top: $apx-250;
+    }
+    40% {
+      left: $apx-250;
+      top: -$apx-120;
+    }
+    60% {
+      left: $apx-350;
+      top: $apx-100;
+    }
+    70% {
+      left: $apx-100;
+      top: $apx-230;
+    }
+    100% {
+      left: -$apx-150;
+      top: -$apx-150;
     }
   }
 </style>

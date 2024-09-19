@@ -45,7 +45,8 @@ const cards = [
     idCategory: '1',
     category: 'категория 1',
     name: 'Прорыв/ <br> открытие года',
-    image: bgGreen2,
+    // image: bgGreen2,
+    animation: 'circle-green',
     link: '/category/discovery-year'
   },
   {
@@ -138,6 +139,7 @@ const cards = [
           name={it.name}
           link={it.link}
           image={it.image}
+          animation={it.animation}
         />
       ))
     }
