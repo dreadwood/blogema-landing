@@ -1,0 +1,53 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Скачивание кода
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Чтобы была возможность работать с другими ветками
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: pnpm run build
+
+      # Проверка, существует ли ветка dist и её очистка
+      - name: Clean dist branch
+        run: |
+          git fetch origin
+          if git rev-parse --verify origin/dist; then
+            git switch dist
+          else
+            git checkout --orphan dist
+          fi
+          git rm -rf .
+          git clean -fd
+          git commit --allow-empty -m "Clean dist branch"
+          git push origin dist --force
+
+      # Деплой в ветку dist
+      - name: Deploy to dist branch
+        run: |
+          git switch main
+          git add dist && git commit -m "Deploy to dist branch"
+          git push origin `git subtree split --prefix dist main`:dist --force
