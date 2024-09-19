@@ -22,6 +22,7 @@ const { company, name, jobTitle, image, color } = Astro.props
 </div>
 
 <style lang="scss">
+  @use 'sass:color';
   @import '/src/styles/global/index.scss';
   .card {
     position: relative;
@@ -111,8 +112,8 @@ const { company, name, jobTitle, image, color } = Astro.props
       padding-top: $apx-m-10;
       font-size: $apx-m-10;
       line-height: $apx-m-14;
-      color: transparentize($color-white, 0.4);
-      border-top: $apx-m-1 solid transparentize($color-white, 0.9);
+      color: color.adjust($color-white, $alpha: -0.4);
+      border-top: $apx-m-1 solid color.adjust($color-white, $alpha: -0.9);
     }
   }
   .name {
@@ -135,12 +136,12 @@ const { company, name, jobTitle, image, color } = Astro.props
     font-size: $apx-14;
     line-height: $apx-20;
     font-weight: 300;
-    color: transparentize($color-white, 0.5);
+    color: color.adjust($color-white, $alpha: -0.5);
     @include mobile {
       padding-top: $apx-m-3;
       font-size: $apx-m-10;
       line-height: $apx-m-14;
-      color: transparentize($color-white, 0.7);
+      color: color.adjust($color-white, $alpha: -0.7);
     }
   }
 </style>

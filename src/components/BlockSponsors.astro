@@ -69,6 +69,7 @@ const brands = [
 </section>
 
 <style lang="scss">
+  @use 'sass:color';
   @import '/src/styles/global/index.scss';
   .wrp {
     padding: 0 $apx-108;
@@ -168,7 +169,7 @@ const brands = [
     line-height: $apx-14;
     font-weight: 400;
     text-align: center;
-    color: transparentize($color-white, 0.5);
+    color: color.adjust($color-white, $alpha: -0.5);
     text-transform: uppercase;
     @include mobile {
       margin-top: $apx-m-2;

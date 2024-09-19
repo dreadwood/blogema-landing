@@ -14,7 +14,7 @@ interface Props {
 const { idCategory, category, name, link, image, animation } = Astro.props
 ---
 
-<div class="card" data-category-id-card={idCategory}>
+<a class="card" href={link || '#'} data-category-id-card={idCategory}>
   {image && <Image class="img" src={image} alt="" />}
   {animation && <div class:list={['circle', animation]} />}
   <div class="top">
@@ -22,10 +22,11 @@ const { idCategory, category, name, link, image, animation } = Astro.props
     <Sprite name="arrow-circle-right" />
   </div>
   <div class="name" set:html={name} />
-  <a class="link" href={link || '#'}>Подробнее</a>
-</div>
+  <div class="link">Подробнее</div>
+</a>
 
 <style lang="scss">
+  @use 'sass:color';
   @import '/src/styles/global/index.scss';
   .card {
     position: relative;
@@ -100,7 +101,7 @@ const { idCategory, category, name, link, image, animation } = Astro.props
     margin-top: $apx-18;
     font-size: $apx-15;
     line-height: $apx-17;
-    color: transparentize($color-white, 0.5);
+    color: color.adjust($color-white, $alpha: -0.5);
     text-decoration: none;
     @include mobile {
       margin-top: $apx-m-15;

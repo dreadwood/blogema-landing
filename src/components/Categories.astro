@@ -115,6 +115,7 @@ const btns = [
 </script>
 
 <style lang="scss">
+  @use 'sass:color';
   @import '/src/styles/global/index.scss';
   .categories {
     position: relative;
@@ -172,7 +173,7 @@ const btns = [
       width: 100%;
       padding-top: $apx-m-60;
       padding-bottom: $apx-m-16;
-      background: transparentize($color-black, 0.2);
+      background: color.adjust($color-black, $alpha: -0.2);
       border: $apx-m-1 solid $color-white;
       border-radius: $apx-m-30 $apx-m-30 $apx-m-40 $apx-m-40;
       &.open {

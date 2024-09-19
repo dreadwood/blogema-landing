@@ -68,6 +68,7 @@ switch (true) {
 </div>
 
 <style lang="scss">
+  @use 'sass:color';
   @import '/src/styles/global/index.scss';
   .wrp {
     position: relative;
@@ -200,7 +201,7 @@ switch (true) {
     }
     &:hover,
     &:focus-visible {
-      color: transparentize($color-white, 0.3);
+      color: color.adjust($color-white, $alpha: -0.3);
     }
     @include mobile {
       width: $apx-m-19;
@@ -244,7 +245,7 @@ switch (true) {
     margin-top: $apx-24;
     font-size: $apx-16;
     line-height: $apx-23;
-    color: transparentize($color-white, 0.5);
+    color: color.adjust($color-white, $alpha: -0.5);
     :global(svg) {
       flex-shrink: 0;
       display: block;
