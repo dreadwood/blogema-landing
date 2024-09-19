@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "blogema-landing",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -12,16 +12,15 @@
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "astro": "^4.15.4",
-    "sass": "^1.78.0",
+    "gsap": "3.12.5",
     "sharp": "0.33.5",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
     "astro-svg-sprite": "1.1.0",
-    "i": "0.3.7",
-    "npm": "10.8.3",
     "prettier": "3.3.3",
     "prettier-plugin-astro": "0.14.1",
+    "sass": "1.79.1",
     "stylelint": "16.9.0",
     "stylelint-config-standard-scss": "13.1.0",
     "stylelint-order": "6.0.4",
