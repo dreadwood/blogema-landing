@@ -32,6 +32,29 @@ switch (true) {
     background = bgBlue
     break
 }
+
+const socials = [
+  {
+    icon: 'icon-instagram',
+    label: 'в инстаграмме более 10 тысяч',
+    value: '> 120к'
+  },
+  {
+    icon: 'icon-telegram',
+    label: 'в телеграмме более 10 тысяч',
+    value: '> 10к'
+  },
+  {
+    icon: 'icon-youtube',
+    label: 'в ютубе более 10 тысяч',
+    value: '> 500к'
+  },
+  {
+    icon: 'icon-vk',
+    label: 'во вконтакте более 10 тысяч',
+    value: '> 5м'
+  }
+]
 ---
 
 <div class="wrp">
@@ -49,15 +72,20 @@ switch (true) {
     <div class="category">#{category}</div>
     <div class="name" set:html={name} />
     <div class="list">
-      <a class="social" href="#">
-        <Sprite name="twitter" />
-      </a>
-      <a class="social" href="#">
-        <Sprite name="facebook" />
-      </a>
-      <a class="social" href="#">
-        <Sprite name="instagram" />
-      </a>
+      {
+        socials.map((it) => (
+          <a class="social" href="#">
+            <div class="social-count">
+              <Sprite name={it.icon} />
+              <span class="visually-hidden">{it.label}</span>
+              <span class="social-count-text" aria-hidden="true">
+                {it.value}
+              </span>
+            </div>
+            <div class="social-text">подписчиков</div>
+          </a>
+        ))
+      }
     </div>
     <button class="btn">Голосовать</button>
     <div class="vote">
@@ -177,42 +205,68 @@ switch (true) {
   }
   .list {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
-    gap: $apx-18;
+    gap: $apx-10;
     margin-top: $apx-16;
     @include mobile {
-      gap: $apx-m-14;
+      gap: $apx-m-6;
       margin-top: $apx-m-13;
     }
   }
   .social {
-    @include transition(color);
     flex-shrink: 0;
-    width: $apx-24;
-    height: $apx-24;
+    display: grid;
+    place-items: center;
+    gap: $apx-3;
+    font-size: $apx-14;
+    line-height: $apx-16;
+    text-align: center;
     color: $color-white;
-    :global(svg) {
-      display: block;
-      width: 100%;
-      height: 100%;
-      fill: currentColor;
-      stroke: currentColor;
-    }
-    &:hover,
-    &:focus-visible {
-      color: color.adjust($color-white, $alpha: -0.3);
+    &[href]:hover,
+    &[href]:focus-visible {
+      .social-text {
+        color: $color-white;
+      }
     }
     @include mobile {
-      width: $apx-m-19;
-      height: $apx-m-19;
+      gap: $apx-m-2;
+      font-size: $apx-m-11;
+      line-height: $apx-m-13;
+    }
+  }
+  .social-count {
+    display: flex;
+    align-items: center;
+    gap: $apx-4;
+    :global(svg) {
+      width: $apx-18;
+      height: $apx-18;
+    }
+    @include mobile {
+      gap: $apx-m-4;
+      :global(svg) {
+        width: $apx-m-18;
+        height: $apx-m-18;
+      }
+    }
+  }
+  .social-text {
+    @include transition(color);
+    font-size: $apx-12;
+    line-height: $apx-14;
+    color: color.adjust($color-white, $alpha: -0.5);
+    @include mobile {
+      font-size: $apx-m-10;
+      line-height: $apx-m-11;
     }
   }
   .btn {
     @include transition(color, background-color);
     display: block;
     width: 100%;
-    margin-top: $apx-40;
+    margin-top: $apx-38;
     padding: $apx-18;
     font-size: $apx-18;
     line-height: $apx-22;
