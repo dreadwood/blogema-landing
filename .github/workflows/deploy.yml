@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build project
-        run: pnpm run build
-
       - name: Set minimal git config
         run: |
           git config user.name "GitHub Actions"
@@ -51,9 +48,12 @@ jobs:
           git commit --allow-empty -m "Clean dist branch"
           git push origin dist --force
 
+      - name: Build project
+        run: |
+          git checkout main
+          pnpm run build
+
       # Деплой в ветку dist
       - name: Deploy to dist branch
         run: |
-          git switch main
-          git add dist && git commit -m "Deploy to dist branch"
-          git push https://github.com/${{ github.repository }} `git subtree split --prefix dist main`:dist --force
+          git subtree push --prefix dist origin dist
