@@ -83,7 +83,7 @@ const btns = [
   }
 
   function filterCategories(id: string | undefined) {
-    const cards = document.querySelectorAll('div[data-category-id-card]')
+    const cards = document.querySelectorAll('[data-category-id-card]')
 
     cards.forEach((it) => {
       if (it instanceof HTMLElement) {
