@@ -12,8 +12,8 @@
 }
 
 @mixin transition($args...) {
-  transition-timing-function: ease-out;
-  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
   transition-property: $args;
 }
 
@@ -26,6 +26,13 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@mixin text-truncate-multiline($row-count: 3) {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $row-count;
+  display: -webkit-box;
+  overflow: hidden;
 }
 
 @mixin text-nowrap {
