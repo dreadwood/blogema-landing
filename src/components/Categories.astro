@@ -97,7 +97,7 @@ const btns = [
   }
 
   values.forEach((it) => {
-    it.addEventListener('click', (evt) => {
+    it.addEventListener('click', () => {
       if (btnDropText) {
         btnDropText.textContent = it.textContent
       }
