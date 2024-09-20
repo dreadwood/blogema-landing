@@ -9,9 +9,51 @@ const { color } = Astro.props
 
 const bloggers = [
   {
+    id: '1',
     name: 'ИВАН ИВАНОВ ИВАНОВИЧ',
     vote: 137,
-    category: 'номинант',
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '2',
+    name: 'КОНСТАНТИН КОНСТАНТИНОПОВСКИЙ',
+    vote: 404,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '3',
+    name: 'Wylsacom',
+    vote: 543,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '4',
+    name: '@LapenkoAnton',
+    vote: 42,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '5',
+    name: 'ИВАН ИВАНОВ ИВАНОВИЧ',
+    vote: 137,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '6',
+    name: 'КОНСТАНТИН КОНСТАНТИНОПОВСКИЙ',
+    vote: 404,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '7',
+    name: 'Wylsacom',
+    vote: 543,
+    image: '/assets/img/blogger.jpg'
+  },
+  {
+    id: '8',
+    name: '@LapenkoAnton',
+    vote: 42,
     image: '/assets/img/blogger.jpg'
   }
 ]
@@ -22,20 +64,119 @@ const bloggers = [
 
   <div class="list">
     {
-      new Array(8)
-        .fill(bloggers[0])
-        .map((it) => (
-          <CardBlogger
-            category={it.category}
-            name={it.name}
-            image={it.image}
-            vote={it.vote}
-            color={color}
-          />
-        ))
+      bloggers.map((it, i) => (
+        <CardBlogger
+          id={it.id}
+          name={it.name}
+          image={it.image}
+          vote={it.vote}
+          color={color}
+        />
+      ))
     }
   </div>
 </section>
+
+<script>
+  interface ILocal {
+    [key: string]: string
+  }
+
+  const KEY_LS = 'vote'
+
+  const cards = [...document.querySelectorAll('[data-card-blogger]')]
+  const btns = document.querySelectorAll('[data-card-blogger-btn]')
+
+  const key = window.location.pathname || 'index'
+  const local = getLocal(KEY_LS)
+
+  if (local.hasOwnProperty(key)) {
+    activeCard(cards, local[key])
+  } else {
+    btns.forEach((it) => initCard(it))
+  }
+
+  function initCard(card: Element) {
+    card.removeAttribute('disabled')
+
+    card.addEventListener('click', () => {
+      if (!(card instanceof HTMLElement)) {
+        throw new Error("Blogger card don't have id")
+      }
+
+      if (!card.dataset.cardBloggerBtn) {
+        throw new Error("Blogger card don't have id")
+      }
+
+      activeCard(cards, card.dataset.cardBloggerBtn)
+      incrementVote(cards, card.dataset.cardBloggerBtn)
+      saveLocal(local, card.dataset.cardBloggerBtn, key, KEY_LS)
+      disableBtns(btns)
+    })
+  }
+
+  function getLocal(keyLS: string): ILocal {
+    const local = localStorage.getItem(keyLS)
+    return local ? JSON.parse(local) : {}
+  }
+
+  function saveLocal(
+    local: ILocal,
+    id: string,
+    category: string,
+    keyLS: string
+  ) {
+    local[category] = id
+    localStorage.setItem(keyLS, JSON.stringify(local))
+  }
+
+  function findCard(cardList: Element[], id: string): Element | undefined {
+    return cardList.find((card) => {
+      if (!(card instanceof HTMLElement)) {
+        return
+      }
+
+      return card.dataset.cardBlogger === id
+    })
+  }
+
+  function activeCard(cardList: Element[], id: string) {
+    const card = findCard(cardList, id)
+
+    if (card) {
+      card.classList.add('actv')
+      changeTextBtn(card)
+    }
+  }
+
+  function changeTextBtn(card: Element) {
+    const btn = card.querySelector('[data-card-blogger-btn]')
+
+    if (btn && btn instanceof HTMLElement) {
+      btn.textContent = 'Вы проголосовали'
+    }
+  }
+
+  function incrementVote(cardList: Element[], id: string) {
+    const card = findCard(cardList, id)
+    if (!card) return
+
+    const countEl = card.querySelector('[data-card-blogger-vote]')
+
+    if (countEl && countEl instanceof HTMLElement) {
+      const count = countEl.textContent
+
+      if (count) {
+        const newCount = +count + 1
+        countEl.textContent = newCount.toString()
+      }
+    }
+  }
+
+  function disableBtns(btns: NodeListOf<Element>) {
+    btns.forEach((item) => item.setAttribute('disabled', 'disabled'))
+  }
+</script>
 
 <style lang="scss">
   @import '/src/styles/global/index.scss';
